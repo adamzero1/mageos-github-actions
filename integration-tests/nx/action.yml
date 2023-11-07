@@ -3,18 +3,30 @@ author: "Mage-OS"
 description: "A Github Action that runs the Magento Integration Tests for all modules that are dependant on the changes in PR (using NX to calculate)"
 
 on:
-  - workflow_call
+  workflow_call:
+    inputs:
+      repository:
+        description: "Repository"
+        required: true
+      pr_head:
+        description: "head SHA"
+        required: true
+      pr_base:
+        description: "pr base SHA"
+        required: true
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "Repository"
+        required: true
+      pr_head:
+        description: "head SHA"
+        required: true
+      pr_base:
+        description: "pr base SHA"
+        required: true
 
-inputs:
-  repository:
-    description: "Repository"
-    required: true
-  pr_head:
-    description: "head SHA"
-    required: true
-  pr_base:
-    description: "pr base SHA"
-    required: true
+
 
 jobs:
   matrix-calculator:
