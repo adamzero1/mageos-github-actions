@@ -19,30 +19,37 @@ on:
         required: true
 
 jobs:
-  matrix-calculator:
-    uses: ./supported-services-matrix-calculator/action.yml
-    with:
-      repository: ${{ inputs.repository }}
-      ref: ${{ inputs.pr_head }}
-    
-  integration-tests:
-    needs: [matrix-calculator]
-    strategy:
-      fail-fast: false
-      matrix:
-        php_version: ${{ fromJSON(needs.matrix-calculator.outputs.php_versions) }}
-        database_version: ${{ fromJSON(needs.matrix-calculator.outputs.database_versions) }}
-        search_version: ${{ fromJSON(needs.matrix-calculator.outputs.search_versions) }}
-        message_queue_version: ${{ fromJSON(needs.matrix-calculator.outputs.message_queue_versions) }}
-        cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.cache_versions) }}
-        http_cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.http_cache_versions) }}
+  debug:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug output
+      - name: debug
         run: |
-          echo "PHP Versions: ${{ matrix.php_version }}"
-          echo "database Versions: ${{ matrix.database_version }}"
-          echo "search Versions: ${{ matrix.search_version }}"
-          echo "message_queue Versions: ${{ matrix.message_queue_version }}"
-          echo "cache Versions: ${{ matrix.cache_version }}"
-          echo "http_cache Versions: ${{ matrix.http_cache_version }}"
+          echo "test"
+
+  # matrix-calculator:
+  #   uses: ./supported-services-matrix-calculator/action.yml
+  #   with:
+  #     repository: ${{ inputs.repository }}
+  #     ref: ${{ inputs.pr_head }}
+    
+  # integration-tests:
+  #   needs: [matrix-calculator]
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       php_version: ${{ fromJSON(needs.matrix-calculator.outputs.php_versions) }}
+  #       database_version: ${{ fromJSON(needs.matrix-calculator.outputs.database_versions) }}
+  #       search_version: ${{ fromJSON(needs.matrix-calculator.outputs.search_versions) }}
+  #       message_queue_version: ${{ fromJSON(needs.matrix-calculator.outputs.message_queue_versions) }}
+  #       cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.cache_versions) }}
+  #       http_cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.http_cache_versions) }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Debug output
+  #       run: |
+  #         echo "PHP Versions: ${{ matrix.php_version }}"
+  #         echo "database Versions: ${{ matrix.database_version }}"
+  #         echo "search Versions: ${{ matrix.search_version }}"
+  #         echo "message_queue Versions: ${{ matrix.message_queue_version }}"
+  #         echo "cache Versions: ${{ matrix.cache_version }}"
+  #         echo "http_cache Versions: ${{ matrix.http_cache_version }}"
