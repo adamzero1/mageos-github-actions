@@ -27,7 +27,8 @@ jobs:
           echo "test"
 
   matrix-calculator:
-    uses: adamzero1/mageos-github-actions/supported-services-matrix-calculator/action.yml@main
+    runs-on: ubuntu-latest
+    uses: ./supported-services-matrix-calculator/action.yml@main
     with:
       repository: ${{ inputs.repository }}
       ref: ${{ inputs.pr_head }}
