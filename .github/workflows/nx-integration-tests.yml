@@ -1,6 +1,6 @@
 name: Integration Tests (Using Nx)
-author: "Mage-OS"
-description: "A Github Action that runs the Magento Integration Tests for all modules that are dependant on the changes in PR (using NX to calculate)"
+# author: "Mage-OS"
+# description: "A Github Action that runs the Magento Integration Tests for all modules that are dependant on the changes in PR (using NX to calculate)"
 
 on:
   workflow_call:
