@@ -6,12 +6,15 @@ on:
   workflow_call:
     inputs:
       repository:
+        type: string
         description: "Repository"
         required: true
       pr_head:
+        type: string
         description: "head SHA"
         required: true
       pr_base:
+        type: string
         description: "pr base SHA"
         required: true
 
