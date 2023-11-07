@@ -10,13 +10,22 @@ outputs:
   cache_versions: ${{ steps.set-matrix.outputs.cache_versions }}
   http_cache_versions: ${{ steps.set-matrix.outputs.http_cache_versions }}
 
+inputs:
+  repository:
+    description: "Repository"
+    required: true
+  ref:
+    description: "head SHA"
+    required: true
+
 runs:
   using: "composite"
   steps:
     - name: Checkout PR commit
       uses: actions/checkout@v3
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
 
     - id: set-matrix
       name: Calculate Matrix

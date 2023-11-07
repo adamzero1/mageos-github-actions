@@ -5,9 +5,23 @@ description: "A Github Action that runs the Magento Integration Tests for all mo
 on:
   - workflow_call
 
+inputs:
+  repository:
+    description: "Repository"
+    required: true
+  pr_head:
+    description: "head SHA"
+    required: true
+  pr_base:
+    description: "pr base SHA"
+    required: true
+
 jobs:
   matrix-calculator:
     uses: ./supported-services-matrix-calculator/action.yml
+    with:
+      repository: ${{ inputs.repository }}
+      ref: ${{ inputs.pr_head }}
 
   nx-diff-calculator:
     runs-on: ubuntu-latest
@@ -15,14 +29,15 @@ jobs:
       - name: Checkout PR commit
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ inputs.repository }}
+          ref: ${{ inputs.pr_head }}
           path: main
           # Need to do this otherwise Nx cant determine diff
           fetch-depth: 0
 
       - name: Fetch base
         working-directory: ./main
-        run: git fetch origin ${{ github.event.pull_request.base.ref }}
+        run: git fetch origin ${{ inputs.pr_base }}
 
       - name: Cache Composer dependencies
         uses: actions/cache@v3
@@ -84,7 +99,7 @@ jobs:
         working-directory: ./main
         run: |
           AFFECTED_OUTPUT=/tmp/affect.json
-          nx print-affected --head=HEAD --base=remotes/origin/${{ github.event.pull_request.base.ref }} > ${AFFECTED_OUTPUT}
+          nx print-affected --head=HEAD --base=remotes/origin/${{ inputs.pr_base }} > ${AFFECTED_OUTPUT}
           echo "Affected Projects: $(jq .projects ${AFFECTED_OUTPUT})"
 
       # just to get some timings
@@ -92,14 +107,14 @@ jobs:
         working-directory: ./main
         run: |
           AFFECTED_OUTPUT=/tmp/affect.json
-          nx print-affected --head=HEAD --base=remotes/origin/${{ github.event.pull_request.base.ref }} > ${AFFECTED_OUTPUT}
+          nx print-affected --head=HEAD --base=remotes/origin/${{ inputs.pr_base }} > ${AFFECTED_OUTPUT}
           echo "Affected Projects: $(jq .projects ${AFFECTED_OUTPUT})"
       
       - name: Project Cache
         uses: actions/cache/save@v3
         with:
           path: main
-          key: ${{ runner.os }}-project-${{ github.event.pull_request.head.sha }}
+          key: ${{ runner.os }}-project-${{ inputs.pr_head }}
     
   integration-tests:
     needs: [matrix-calculator, nx-diff-calculator]
@@ -127,7 +142,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: main
-          key: ${{ runner.os }}-project-${{ github.event.pull_request.head.sha }}
+          key: ${{ runner.os }}-project-${{ inputs.pr_head }}
 
       # could probably swap this to a docker container in future
       - name: Install NX
@@ -139,7 +154,7 @@ jobs:
         working-directory: ./main
         run: |
           AFFECTED_OUTPUT=/tmp/affect.json
-          nx print-affected --head=HEAD --base=remotes/origin/${{ github.event.pull_request.base.ref }} > ${AFFECTED_OUTPUT}
+          nx print-affected --head=HEAD --base=remotes/origin/${{ inputs.pr_base }} > ${AFFECTED_OUTPUT}
           cat ${AFFECTED_OUTPUT}
           echo "Affected Projects: $(jq .projects ${AFFECTED_OUTPUT})"
 
@@ -189,4 +204,4 @@ jobs:
         working-directory: ./main
         run: |
           export WARDEN="$(dirname $(pwd))/warden/bin/warden"
-          nx affected --target=test:integration --head=HEAD --base=remotes/origin/${{ github.event.pull_request.base.ref }}
+          nx affected --target=test:integration --head=HEAD --base=remotes/origin/${{ inputs.pr_base }}
