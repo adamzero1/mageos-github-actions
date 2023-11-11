@@ -33,6 +33,7 @@ runs:
 
     - name: Fetch base
       working-directory: ./main
+      shell: bash
       run: git fetch origin ${{ inputs.pr_base }}
 
     - name: Cache Composer dependencies
@@ -44,6 +45,7 @@ runs:
     - id: get-composer-and-php-version
       name: Get Composer & PHP Version
       working-directory: ./main
+      shell: bash
       run: |
         echo "php_version=$(jq -c .services.php[0] supported-services.json)" >> "$GITHUB_OUTPUT"
         echo "composer_version=$(jq -rc .services.composer[0] supported-services.json)" >> "$GITHUB_OUTPUT"
@@ -59,6 +61,7 @@ runs:
     # could probably swap this to a docker container in future
     - name: Install NX
       working-directory: ./main
+      shell: bash
       run: |
         npm install -g nx@15.4.1
 
@@ -72,6 +75,7 @@ runs:
 
     - name: Copy in NX files
       working-directory: ./main
+      shell: bash
       run: |
         NXDIR="../nx"
         cp -r ${NXDIR}/nx ./
@@ -81,11 +85,13 @@ runs:
 
     - name: Install NPM Deps
       working-directory: ./main
+      shell: bash
       run: |
         npm ci
 
     - name: Generate Nx Workspace
       working-directory: ./main
+      shell: bash
       run: |
         npm run generate-workspace -- --commands=test:unit,test:integration \
           --test:unit='if [ -d {{ MODULE_PATH }}Test/Unit ]; then ${WARDEN} env exec -T php-fpm ./vendor/bin/phpunit -c dev/tests/unit/phpunit.xml {{ MODULE_PATH }}Test/Unit; else echo "{{ MODULE_NAME }} has no unit test; fi' \
@@ -93,6 +99,7 @@ runs:
 
     - name: Print Affected
       working-directory: ./main
+      shell: bash
       run: |
         AFFECTED_OUTPUT=/tmp/affect.json
         nx print-affected --head=HEAD --base=remotes/origin/${{ inputs.pr_base }} > ${AFFECTED_OUTPUT}
@@ -101,6 +108,7 @@ runs:
     # just to get some timings
     - name: Print Affected2
       working-directory: ./main
+      shell: bash
       run: |
         AFFECTED_OUTPUT=/tmp/affect.json
         nx print-affected --head=HEAD --base=remotes/origin/${{ inputs.pr_base }} > ${AFFECTED_OUTPUT}
