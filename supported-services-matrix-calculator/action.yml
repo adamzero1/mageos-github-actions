@@ -26,11 +26,11 @@ runs:
       run: |
         echo "yo yoy yo"
 
-    # - name: Checkout PR commit
-    #   uses: actions/checkout@v3
-    #   with:
-    #     repository: ${{ inputs.repository }}
-    #     ref: ${{ inputs.ref }}
+    - name: Checkout PR commit
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ inputs.repository }}
+        ref: ${{ inputs.ref }}
 
     # - id: set-matrix
     #   name: Calculate Matrix
