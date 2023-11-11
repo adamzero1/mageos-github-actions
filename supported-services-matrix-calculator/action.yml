@@ -3,12 +3,12 @@ author: "Mage-OS"
 description: "Calulate a matrix of all supported services (based off supported-services.json)"
 
 outputs:
-  php_versions: ${{ steps.set-matrix.outputs.php_versions }}
-  database_versions: ${{ steps.set-matrix.outputs.database_versions }}
-  search_versions: ${{ steps.set-matrix.outputs.search_versions }}
-  message_queue_versions: ${{ steps.set-matrix.outputs.message_queue_versions }}
-  cache_versions: ${{ steps.set-matrix.outputs.cache_versions }}
-  http_cache_versions: ${{ steps.set-matrix.outputs.http_cache_versions }}
+  # php_versions: ${{ steps.set-matrix.outputs.php_versions }}
+  # database_versions: ${{ steps.set-matrix.outputs.database_versions }}
+  # search_versions: ${{ steps.set-matrix.outputs.search_versions }}
+  # message_queue_versions: ${{ steps.set-matrix.outputs.message_queue_versions }}
+  # cache_versions: ${{ steps.set-matrix.outputs.cache_versions }}
+  # http_cache_versions: ${{ steps.set-matrix.outputs.http_cache_versions }}
 
 inputs:
   repository:
@@ -24,7 +24,7 @@ runs:
     - name: debug
       run: |
         echo "yo yoy yo"
-        
+
     # - name: Checkout PR commit
     #   uses: actions/checkout@v3
     #   with:
