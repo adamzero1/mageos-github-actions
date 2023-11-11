@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: debug2
         shell: bash
-        with:
+        env:
           repository: ${{ inputs.repository }}
           pr_head: ${{ inputs.pr_head }}
           pr_base: ${{ inputs.pr_base }}
