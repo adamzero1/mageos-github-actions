@@ -2,19 +2,6 @@ name: "Supported Services Matrix Calculator"
 author: "Mage-OS"
 description: "Calulate a matrix of all supported services (based off supported-services.json)"
 
-outputs:
-  php_versions: 
-    value: ${{ steps.set-matrix.outputs.php_versions }}
-  database_versions: 
-    value: ${{ steps.set-matrix.outputs.database_versions }}
-  search_versions: 
-    value: ${{ steps.set-matrix.outputs.search_versions }}
-  message_queue_versions: 
-    value: ${{ steps.set-matrix.outputs.message_queue_versions }}
-  cache_versions: 
-    vaule: ${{ steps.set-matrix.outputs.cache_versions }}
-  http_cache_versions: 
-    value: ${{ steps.set-matrix.outputs.http_cache_versions }}
 
 inputs:
   repository:
@@ -23,6 +10,21 @@ inputs:
   ref:
     description: "head SHA"
     required: true
+
+outputs:
+  php_versions: 
+    description: fooooo
+    value: ${{ steps.set-matrix.outputs.php_versions }}
+  # database_versions: 
+  #   value: ${{ steps.set-matrix.outputs.database_versions }}
+  # search_versions: 
+  #   value: ${{ steps.set-matrix.outputs.search_versions }}
+  # message_queue_versions: 
+  #   value: ${{ steps.set-matrix.outputs.message_queue_versions }}
+  # cache_versions: 
+  #   vaule: ${{ steps.set-matrix.outputs.cache_versions }}
+  # http_cache_versions: 
+  #   value: ${{ steps.set-matrix.outputs.http_cache_versions }}
 
 runs:
   using: "composite"
