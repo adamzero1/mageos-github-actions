@@ -81,15 +81,15 @@ jobs:
       
   integration-tests:
     needs: [matrix-calculator]
-      strategy:
-        fail-fast: false
-        matrix:
-          php_version: ${{ fromJSON(needs.matrix-calculator.outputs.php_versions) }}
-          database_version: ${{ fromJSON(needs.matrix-calculator.outputs.database_versions) }}
-          search_version: ${{ fromJSON(needs.matrix-calculator.outputs.search_versions) }}
-          message_queue_version: ${{ fromJSON(needs.matrix-calculator.outputs.message_queue_versions) }}
-          cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.cache_versions) }}
-          http_cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.http_cache_versions) }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php_version: ${{ fromJSON(needs.matrix-calculator.outputs.php_versions) }}
+        database_version: ${{ fromJSON(needs.matrix-calculator.outputs.database_versions) }}
+        search_version: ${{ fromJSON(needs.matrix-calculator.outputs.search_versions) }}
+        message_queue_version: ${{ fromJSON(needs.matrix-calculator.outputs.message_queue_versions) }}
+        cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.cache_versions) }}
+        http_cache_version: ${{ fromJSON(needs.matrix-calculator.outputs.http_cache_versions) }}
     runs-on: ubuntu-latest
     steps:
       - name: debugalilly
