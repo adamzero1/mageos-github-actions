@@ -30,18 +30,11 @@ on:
         required: true
 
 jobs:
-  matrix-calculator:
-    outputs:
-      php_versions: ${{ steps.calculate-matrix.outputs.php_versions }}
-      database_versions: ${{ steps.calculate-matrix.outputs.database_versions }}
-      search_versions: ${{ steps.calculate-matrix.outputs.search_versions }}
-      message_queue_versions: ${{ steps.calculate-matrix.outputs.message_queue_versions }}
-      cache_versions: ${{ steps.calculate-matrix.outputs.cache_versions }}
-      http_cache_versions: ${{ steps.calculate-matrix.outputs.http_cache_versions }}
-
+  debug:
+    name: Debug
     runs-on: ubuntu-latest
     steps:
-      - name: debug2
+      - name: debug
         shell: bash
         env:
           repository: ${{ inputs.repository }}
@@ -53,16 +46,25 @@ jobs:
           echo "pr_head: ${pr_head}"
           echo "pr_base: ${pr_base}"
 
-      - name: blah blah
+  matrix-calculator:
+    outputs:
+      php_versions: ${{ steps.calculate-matrix.outputs.php_versions }}
+      database_versions: ${{ steps.calculate-matrix.outputs.database_versions }}
+      search_versions: ${{ steps.calculate-matrix.outputs.search_versions }}
+      message_queue_versions: ${{ steps.calculate-matrix.outputs.message_queue_versions }}
+      cache_versions: ${{ steps.calculate-matrix.outputs.cache_versions }}
+      http_cache_versions: ${{ steps.calculate-matrix.outputs.http_cache_versions }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Matrix Calulator
         id: calculate-matrix
         uses:  adamzero1/mageos-github-actions/supported-services-matrix-calculator@main
-        # uses: mage-os/github-actions/get-magento-version@main
         with:
-          # working-directory: foo
           repository: ${{ inputs.repository }}
           ref: ${{ inputs.pr_head }}
 
-      - name: calc result
+      - name: Calculated Result
         shell: bash
         env:
           php_versions: ${{ steps.calculate-matrix.outputs.php_versions }}
@@ -78,9 +80,21 @@ jobs:
           echo "message_queue_versions: $message_queue_versions"
           echo "cache_versions: $cache_versions"
           echo "http_cache_versions: $http_cache_versions"
+
+  nx-project-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Nx Project Setup
+        uses: adamzero1/mageos-github-actions/nx-integration-tests-setup@main
+        with:
+          repository: ${{ inputs.repository }}
+          ref: ${{ inputs.pr_head }}
+          pr_base: ${{ inputs.pr_base }}
       
   integration-tests:
-    needs: [matrix-calculator]
+    needs: 
+      - matrix-calculator
+      - nx-project-setup
     strategy:
       fail-fast: false
       matrix:

@@ -2,12 +2,13 @@ name: "Supported Services Matrix Calculator"
 author: "Mage-OS"
 description: "Calulate a matrix of all supported services (based off supported-services.json)"
 
-
 inputs:
   repository:
+    type: string
     description: "Repository"
     required: true
   ref:
+    type: string
     description: "head SHA"
     required: true
 
