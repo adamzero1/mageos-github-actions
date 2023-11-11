@@ -38,7 +38,7 @@ jobs:
           echo "test"
 
       - name: blah blah
-        uses:  mage-os/github-actions/supported-services-matrix-calculator@main
+        uses:  adamzero1/mageos-github-actions/supported-services-matrix-calculator@main
         # uses: mage-os/github-actions/get-magento-version@main
         with:
           # working-directory: foo
