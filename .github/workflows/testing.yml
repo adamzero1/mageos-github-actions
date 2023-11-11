@@ -1,3 +1,4 @@
+name: testing
 on:
   workflow_call:
     inputs:
@@ -35,3 +36,10 @@ jobs:
       - name: debug
         run: |
           echo "test"
+        
+  matrix-calculator:
+    runs-on: ubuntu-latest
+    uses: ./supported-services-matrix-calculator/action.yml@main
+    with:
+      repository: ${{ inputs.repository }}
+      ref: ${{ inputs.pr_head }}
