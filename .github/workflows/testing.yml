@@ -31,6 +31,14 @@ on:
 
 jobs:
   matrix-calculator:
+    outputs:
+      php_versions: ${{ steps.calculate-matrix.outputs.php_versions }}
+      database_versions: ${{ steps.calculate-matrix.outputs.database_versions }}
+      search_versions: ${{ steps.calculate-matrix.outputs.search_versions }}
+      message_queue_versions: ${{ steps.calculate-matrix.outputs.message_queue_versions }}
+      cache_versions: ${{ steps.calculate-matrix.outputs.cache_versions }}
+      http_cache_versions: ${{ steps.calculate-matrix.outputs.http_cache_versions }}
+
     runs-on: ubuntu-latest
     steps:
       - name: debug2
