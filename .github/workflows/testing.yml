@@ -30,7 +30,7 @@ on:
         required: true
 
 jobs:
-  debug:
+  matrix-calculator:
     runs-on: ubuntu-latest
     steps:
       - name: debug2
@@ -70,7 +70,15 @@ jobs:
           echo "message_queue_versions: $message_queue_versions"
           echo "cache_versions: $cache_versions"
           echo "http_cache_versions: $http_cache_versions"
-        
+      
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: debugalilly
+        shell: bash
+        run: |
+          echo "scccccccooooooooooby!?"
+
   # matrix-calculator:
   #   uses:  mage-os/github-actions/supported-services-matrix-calculator@main
   #   with:
