@@ -26,12 +26,12 @@ jobs:
         run: |
           echo "test"
 
-  matrix-calculator:
-    runs-on: ubuntu-latest
-    uses: ./supported-services-matrix-calculator/action.yml@main
-    with:
-      repository: ${{ inputs.repository }}
-      ref: ${{ inputs.pr_head }}
+  # matrix-calculator:
+  #   runs-on: ubuntu-latest
+  #   uses: ./supported-services-matrix-calculator/action.yml@main
+  #   with:
+  #     repository: ${{ inputs.repository }}
+  #     ref: ${{ inputs.pr_head }}
     
   # integration-tests:
   #   needs: [matrix-calculator]
