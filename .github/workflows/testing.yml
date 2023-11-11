@@ -59,7 +59,7 @@ jobs:
         env:
           php_versions: ${{ steps.calculate-matrix.outputs.php_versions }}
         run: |
-          echo "PHP Versions: ${{ php_versions }}"
+          echo "PHP Versions: $php_versions"
         
   # matrix-calculator:
   #   uses:  mage-os/github-actions/supported-services-matrix-calculator@main
