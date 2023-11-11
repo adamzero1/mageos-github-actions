@@ -26,7 +26,7 @@ outputs:
     value: ${{ steps.set-matrix.outputs.message_queue_versions }}
   cache_versions: 
     description: The applicable Cache versions
-    vaule: ${{ steps.set-matrix.outputs.cache_versions }}
+    value: ${{ steps.set-matrix.outputs.cache_versions }}
   http_cache_versions: 
     description: The applicable HTTP Cache versions
     value: ${{ steps.set-matrix.outputs.http_cache_versions }}
