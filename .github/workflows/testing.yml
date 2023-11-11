@@ -33,9 +33,17 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
-      - name: debug
+      - name: debug2
+        shell: bash
+        with:
+          repository: ${{ inputs.repository }}
+          pr_head: ${{ inputs.pr_head }}
+          pr_base: ${{ inputs.pr_base }}
         run: |
-          echo "test"
+          echo "input was"
+          echo "repository: ${repository}"
+          echo "pr_head: ${pr_head}"
+          echo "pr_base: ${pr_base}"
 
       - name: blah blah
         uses:  adamzero1/mageos-github-actions/supported-services-matrix-calculator@main
