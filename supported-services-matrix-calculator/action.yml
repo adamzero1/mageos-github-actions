@@ -13,18 +13,23 @@ inputs:
 
 outputs:
   php_versions: 
-    description: fooooo
+    description: The applicable PHP versions
     value: ${{ steps.set-matrix.outputs.php_versions }}
-  # database_versions: 
-  #   value: ${{ steps.set-matrix.outputs.database_versions }}
-  # search_versions: 
-  #   value: ${{ steps.set-matrix.outputs.search_versions }}
-  # message_queue_versions: 
-  #   value: ${{ steps.set-matrix.outputs.message_queue_versions }}
-  # cache_versions: 
-  #   vaule: ${{ steps.set-matrix.outputs.cache_versions }}
-  # http_cache_versions: 
-  #   value: ${{ steps.set-matrix.outputs.http_cache_versions }}
+  database_versions: 
+    description: The applicable DB versions
+    value: ${{ steps.set-matrix.outputs.database_versions }}
+  search_versions: 
+    description: The applicable Search versions
+    value: ${{ steps.set-matrix.outputs.search_versions }}
+  message_queue_versions: 
+    description: The applicable Message Queue versions
+    value: ${{ steps.set-matrix.outputs.message_queue_versions }}
+  cache_versions: 
+    description: The applicable Cache versions
+    vaule: ${{ steps.set-matrix.outputs.cache_versions }}
+  http_cache_versions: 
+    description: The applicable HTTP Cache versions
+    value: ${{ steps.set-matrix.outputs.http_cache_versions }}
 
 runs:
   using: "composite"
