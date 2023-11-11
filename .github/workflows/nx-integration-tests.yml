@@ -1,5 +1,5 @@
 name: NX Integration Test
-description: Workflow to run NX assisted integration tests for Mage-OS projects.
+#description: Workflow to run NX assisted integration tests for Mage-OS projects.
 on:
   workflow_call:
     inputs:
