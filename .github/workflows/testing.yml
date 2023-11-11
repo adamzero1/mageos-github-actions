@@ -121,6 +121,12 @@ jobs:
         with:
           path: main
           key: ${{ runner.os }}-project-${{ inputs.ref }}
+      
+      # could probably swap this to a docker container in future
+      - name: Install NX
+        working-directory: ./main
+        run: |
+          npm install -g nx@15.4.1
 
       - name: Print Affected
         working-directory: ./main
