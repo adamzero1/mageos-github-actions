@@ -46,12 +46,20 @@ jobs:
           echo "pr_base: ${pr_base}"
 
       - name: blah blah
+        id: calculate-matrix
         uses:  adamzero1/mageos-github-actions/supported-services-matrix-calculator@main
         # uses: mage-os/github-actions/get-magento-version@main
         with:
           # working-directory: foo
           repository: ${{ inputs.repository }}
           ref: ${{ inputs.pr_head }}
+
+      - name: calc result
+        shell: bash
+        env:
+          php_versions: ${{ steps.calculate-matrix.outputs.php_versions }}
+        run: |
+          echo "PHP Versions: ${{ php_versions }}"
         
   # matrix-calculator:
   #   uses:  mage-os/github-actions/supported-services-matrix-calculator@main
