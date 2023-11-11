@@ -36,9 +36,15 @@ jobs:
       - name: debug
         run: |
           echo "test"
+
+      - name: blah blah
+        uses:  mage-os/github-actions/supported-services-matrix-calculator@main
+        with:
+          repository: ${{ inputs.repository }}
+          ref: ${{ inputs.pr_head }}
         
-  matrix-calculator:
-    uses:  mage-os/github-actions/supported-services-matrix-calculator@main
-    with:
-      repository: ${{ inputs.repository }}
-      ref: ${{ inputs.pr_head }}
+  # matrix-calculator:
+  #   uses:  mage-os/github-actions/supported-services-matrix-calculator@main
+  #   with:
+  #     repository: ${{ inputs.repository }}
+  #     ref: ${{ inputs.pr_head }}
