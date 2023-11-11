@@ -81,6 +81,7 @@ jobs:
           php_versions: ${{ needs.matrix-calculator.outputs.php_versions }}
         run: |
           echo "scccccccooooooooooby!?"
+          echo "PHP Versions: $php_versions"
 
   # matrix-calculator:
   #   uses:  mage-os/github-actions/supported-services-matrix-calculator@main
