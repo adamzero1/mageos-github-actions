@@ -38,7 +38,6 @@ jobs:
           echo "test"
         
   matrix-calculator:
-    runs-on: ubuntu-latest
     uses: ./supported-services-matrix-calculator/action.yml@main
     with:
       repository: ${{ inputs.repository }}
