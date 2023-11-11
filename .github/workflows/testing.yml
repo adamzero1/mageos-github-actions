@@ -72,10 +72,13 @@ jobs:
           echo "http_cache_versions: $http_cache_versions"
       
   integration-tests:
+    needs: [matrix-calculator]
     runs-on: ubuntu-latest
     steps:
       - name: debugalilly
         shell: bash
+        env:
+          php_versions: ${{ needs.matrix-calculator.outputs.php_versions }}
         run: |
           echo "scccccccooooooooooby!?"
 
