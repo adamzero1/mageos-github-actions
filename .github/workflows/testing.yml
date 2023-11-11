@@ -38,7 +38,7 @@ jobs:
           echo "test"
         
   matrix-calculator:
-    uses: ./supported-services-matrix-calculator/action.yml@main
+    uses:  mage-os/github-actions/supported-services-matrix-calculator@main
     with:
       repository: ${{ inputs.repository }}
       ref: ${{ inputs.pr_head }}
